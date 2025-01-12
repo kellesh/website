@@ -1,5 +1,6 @@
 import subprocess
 import re
+from security import safe_command
 
 # Finds the documents to rewrite for files that include user-guide-content-moved.md.
 # Then opens these files and processes the stuff after those lines to figure out where
@@ -68,7 +69,7 @@ def rewrite_documents(rewrites):
         new = new.replace('-', '\-')
 
         #print(cmd % (original, new))
-        subprocess.call(cmd % (original, new), shell=True)
+        safe_command.run(subprocess.call, cmd % (original, new), shell=True)
 
 # We can't have in-line replace across multiple files without sudo (I think), so it
 # creates a lot of backups that we have to delete.
