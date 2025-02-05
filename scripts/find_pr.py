@@ -61,7 +61,7 @@ def main(tags, token, path, last_n_pr):
                               "Authorization": "token %s" % token,
                               "Accept": "application/vnd.github.ocelot-preview+json",
                               "Accept-Encoding": "gzip"
-                          })
+                          }, timeout=60)
         r.raise_for_status()
 
         reply = r.json()
