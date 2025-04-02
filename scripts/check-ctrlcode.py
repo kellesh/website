@@ -37,7 +37,7 @@ def check_ctrlcode(filepath):
     line = 0
     with open(filepath, encoding='utf-8') as f:
         while True:
-            str = f.readline()
+            str = f.readline(5_000_000)
             if(str == ""):
                 break
             line = line + 1
