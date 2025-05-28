@@ -4,8 +4,6 @@ import os
 import subprocess
 import jinja2
 import click
-
-DEVNULL = open(os.devnull, 'w')
 ISSUE_TEMPLATE = """\
 # This is a Bug Report
 ## Problem
