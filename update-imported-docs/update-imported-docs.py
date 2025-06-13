@@ -243,7 +243,7 @@ def main():
         print("Cloning repo {}".format(repo_name))
         cmd = "git clone --depth=1 -b {0} {1} {2}".format(
             repo["branch"], repo_remote, repo_path)
-        res = subprocess.call(cmd, shell=True)
+        res = subprocess.call(cmd, shell=False)
         if res != 0:
             print("[Error] failed in cloning repo {}".format(repo_name))
             continue
@@ -257,7 +257,7 @@ def main():
                 "/src/k8s.io/kubernetes" + "\n" + \
                 "export K8S_WEBROOT=" + root_dir + "\n" + gen_cmd
             print("Generating docs for {} with {}".format(repo_name, gen_cmd))
-            res = subprocess.call(gen_cmd, shell=True)
+            res = subprocess.call(gen_cmd, shell=False)
             if res != 0:
                 print("[Error] failed in generating docs for {}".format(
                     repo_name))

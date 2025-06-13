@@ -7,7 +7,7 @@ import re
 # Returns a list of ('old/path', 'new/path') tuples.
 def find_documents_to_rewrite():
     cmd = "ag --markdown -Q -l \"{% include user-guide-content-moved.md %}\""
-    moved_docs = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE).stdout.read().splitlines()
+    moved_docs = subprocess.Popen(cmd, shell=False, stdout=subprocess.PIPE).stdout.read().splitlines()
 
     rewrites = []
     for doc in moved_docs:
@@ -68,13 +68,13 @@ def rewrite_documents(rewrites):
         new = new.replace('-', '\-')
 
         #print(cmd % (original, new))
-        subprocess.call(cmd % (original, new), shell=True)
+        subprocess.call(cmd % (original, new), shell=False)
 
 # We can't have in-line replace across multiple files without sudo (I think), so it
 # creates a lot of backups that we have to delete.
 def remove_sed_backups():
     cmd = "find . -name '*.bak' -delete"
-    subprocess.call(cmd, shell=True)
+    subprocess.call(cmd, shell=False)
 
 def main():
     rewrites = find_documents_to_rewrite()
