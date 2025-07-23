@@ -4,6 +4,7 @@ import os
 import subprocess
 import jinja2
 import click
+from security import safe_command
 
 DEVNULL = open(os.devnull, 'w')
 ISSUE_TEMPLATE = """\
@@ -74,7 +75,7 @@ def git_diff(filepath, l_commit, r_commit, stat=False):
 
 def git_exists(path, filepath):
     cmd = ["git", "cat-file", "-e", "{}:{}".format(path, filepath)]
-    ret_code = subprocess.call(cmd, stderr=DEVNULL)
+    ret_code = safe_command.run(subprocess.call, cmd, stderr=DEVNULL)
     return ret_code == 0
 
 
